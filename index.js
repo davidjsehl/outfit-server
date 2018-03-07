@@ -13,6 +13,10 @@ module.exports = app
 
 const PORT = process.env.PORT || 1313
 
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+}
+
 const createApp = () => {
 
     app.use(morgan('dev'))
