@@ -9,7 +9,7 @@ const s3 = new aws.S3({
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
     region: "us-east-1",
-});
+})
 
 // Initialize multers3 with our s3 config and other options
 const upload = multer({
@@ -25,12 +25,11 @@ const upload = multer({
         }
     })
 })
-console.log('uplloooooadddd', upload)
-
 
 router.post('/', upload.single('photo'), (req, res, next) => {
-    console.log('MADEEEE ITTTIO DDDDDDDDDD!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
     res.json(req.file)
+    // .then(req)
+    // console.log('REQUESSTTTTTTTTT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', req.body)
 })
 
 // router.get('/', (req, res, next) => {
