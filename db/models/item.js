@@ -11,6 +11,9 @@ const Item = db.define('item', {
     color: {
         type: Sequelize.STRING
     },
+    imageUrl: {
+        type: Sequelize.STRING,
+    }
 })
 
 module.exports = Item

@@ -6,6 +6,7 @@ router.post('/', (req, res, next) => {
     Item.create({
         category: req.body.category,
         color: req.body.color.w3c.name,
+        imageUrl: req.body.imageUrl,
         wardrobeId: 1,
     })
     .then(newItem => res.json(newItem))
