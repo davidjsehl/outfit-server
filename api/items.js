@@ -13,4 +13,14 @@ router.post('/', (req, res, next) => {
     .catch(next)
 })
 
+router.get('/:wardrobeId', (req, res, next) => {
+    console.log('reqqwuuessstttt', req.body)
+    Item.findAll({
+        where:{
+            wardrobeId: req.params.wardrobeId
+        }
+    })
+    .then(items => res.json(items))
+})
+
 module.exports = router
