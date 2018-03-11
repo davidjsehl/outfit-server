@@ -13,6 +13,10 @@ const Item = db.define('item', {
     },
     imageUrl: {
         type: Sequelize.STRING,
+    },
+    isDirty: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
     }
 })
 
