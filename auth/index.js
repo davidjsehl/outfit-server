@@ -22,10 +22,8 @@ router.post('/login', (req, res, next) => {
 router.post('/signup', (req, res, next) => {
     delete req.body.salt
     delete req.body.isAdmin
-    console.log('madeee it to the backend req body', req.body)
     User.create(req.body)
     .then(user => {
-        console.log('usssserrrrrrrrrrrrrrrr', user)
         req.login(user, err => (err ? next(err) : res.json(user)))
     })
     .catch(err => {
