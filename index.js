@@ -2,6 +2,9 @@ const express = require('express')
 const morgan = require('morgan')
 const path = require('path')
 const bodyParser = require('body-parser')
+const passport = require('passport')
+const session = require('express-session')
+const compression = require('compression')
 
 const db = require('./db')
 
@@ -17,6 +20,12 @@ if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
 }
 
+passport.serializeUser((user, done) => done(null, user.id))
+passport.deserializeUser((id, done) =>
+    db.models.user.findById(id)
+        .then(user => done(null, user))
+        .catch(done))
+
 const createApp = () => {
 
     app.use(morgan('dev'))
@@ -24,17 +33,18 @@ const createApp = () => {
     app.use(bodyParser.json())
     app.use(bodyParser.urlencoded({ extended: true }))
     
-    // app.use(compression());
+    app.use(compression());
     
-    // app.use(session({
-    //     secret: process.env.SESSION_SECRET || 'matcha',
-    //     resave: true,
-    //     saveUninitialized: true,
-    // }));
+    app.use(session({
+        secret: process.env.SESSION_SECRET || 'nyctillthedeathofme',
+        resave: true,
+        saveUninitialized: true,
+    }));
     
-    // app.use(passport.initialize());
-    // app.use(passport.session());
+    app.use(passport.initialize());
+    app.use(passport.session());
 
+    app.use('/auth', require('./auth'))
     app.use('/api', require('./api'))
     
     app.use(express.static(path.join(__dirname, 'public')))
