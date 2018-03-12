@@ -6,6 +6,8 @@
   "scripts": {
     "start": "node index.js",
     "seed": "node script/seed.js",
+    "start-dev": "nodemon api/server/index.js",
+    "start-server": "nodemon index.js -e html,js,scss --ignore public",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -26,5 +28,8 @@
     "pg": "^7.4.1",
     "pg-hstore": "^2.3.2",
     "sequelize": "^4.35.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.1"
   }
 }

@@ -21,11 +21,10 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 passport.serializeUser((user, done) => done(null, user.id))
-passport.deserializeUser((id, done) => {
+passport.deserializeUser((id, done) =>
     db.models.user.findById(id)
-    .then(user => done(null, user))
-    .catch(done)
-})
+        .then(user => done(null, user))
+        .catch(done))
 
 const createApp = () => {
 
@@ -45,8 +44,8 @@ const createApp = () => {
     app.use(passport.initialize());
     app.use(passport.session());
 
-    app.use('/api', require('./api'))
     app.use('/auth', require('./auth'))
+    app.use('/api', require('./api'))
     
     app.use(express.static(path.join(__dirname, 'public')))
 
